@@ -132,7 +132,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="sass">
 $slider-height: 20px !default;
 $slider-width: 130px !default;
 $rail-height: 4px !default;
