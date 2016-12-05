@@ -10,7 +10,7 @@
     "Vue"
   ],
   "license": "MIT",
-  "main": "dist/vue-range-slider.cjs.js",
+  "main": "src/index.js",
   "files": [
     "dist"
   ],
