@@ -19,9 +19,11 @@ export default {
 	}
 };
 
-function forEachListener(vm: any, f: (key: string, listener: Function) => void) {
-  const events = vm.$options.events
-  Object.keys(events).forEach(key => {
-    f(key, (event: Event) => events[key].call(vm, event))
-  })
+function forEachListener(vm, f) {
+  var events = vm.$options.events;
+  Object.keys(events).forEach(function (key) {
+    f(key, function (event) {
+      return events[key].call(vm, event);
+    });
+  });
 }

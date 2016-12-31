@@ -1,17 +1,14 @@
 // @flow
 
-export function relativeMouseOffset (
-  offset: { clientX: number, clientY: number },
-  base: HTMLElement
-): { left: number, top: number } {
-  const bounds = base.getBoundingClientRect()
+export function relativeMouseOffset (offset,base) {
+	const bounds = base.getBoundingClientRect();
   return {
     left: offset.clientX - bounds.left,
     top: offset.clientY - bounds.top
   }
 }
 
-export function round (value: number, min: number, max: number, step: number): number {
+export function round (value, min, max, step) {
   if (value <= min) {
     return min
   }

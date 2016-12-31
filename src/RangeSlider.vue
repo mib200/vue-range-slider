@@ -98,30 +98,30 @@ export default {
   },
 
   methods: {
-    drag (event: Event, offset: { left: number, top: number }) {
+    drag (event, offset) {
       const { offsetWidth } = this.$refs.inner
       this.actualValue = this.round(this.valueFromBounds(offset.left, offsetWidth))
       this.emitEvent(this.actualValue)
     },
 
-    dragEnd (event: Event, offset: { left: number, top: number }) {
+    dragEnd (event, offset) {
       const { offsetWidth } = this.$refs.inner
       this.actualValue = this.round(this.valueFromBounds(offset.left, offsetWidth))
       this.emitEvent(this.actualValue, true)
     },
 
-    emitEvent(value: number, isDragEnd: ?boolean) {
+    emitEvent(value, isDragEnd) {
       this.$emit('input', value)
       if (isDragEnd) {
         this.$emit('change', value)
       }
     },
 
-    valueFromBounds (point: number, width: number) {
+    valueFromBounds (point, width) {
       return (point / width) * (this._max - this._min) + this._min
     },
 
-    round (value: number): number {
+    round (value) {
       return round(value, this._min, this._max, this._step)
     }
   },

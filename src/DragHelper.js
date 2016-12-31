@@ -26,31 +26,31 @@ export default {
   },
 
   events: {
-    mousedown (event: MouseEvent) {
+    mousedown (event) {
       return this.dragStart(event, this.offsetByMouse)
     },
 
-    mousemove (event: MouseEvent) {
+    mousemove (event) {
       return this.dragMove(event, this.offsetByMouse)
     },
 
-    mouseup (event: MouseEvent) {
+    mouseup (event) {
       return this.dragEnd(event, this.offsetByMouse)
     },
 
-    touchstart (event: TouchEvent) {
+    touchstart (event) {
       return this.dragStart(event, this.offsetByTouch)
     },
 
-    touchmove (event: TouchEvent) {
+    touchmove (event) {
       return this.dragMove(event, this.offsetByTouch)
     },
 
-    touchend (event: TouchEvent) {
+    touchend (event) {
       return this.dragEnd(event, this.offsetByTouch)
     },
 
-    touchcancel (event: TouchEvent) {
+    touchcancel (event) {
       return this.dragEnd(event, this.offsetByTouch)
     }
   },
@@ -60,29 +60,29 @@ export default {
       this.target = this.$el.querySelector(this.targetSelector) || this.$el
     },
 
-    offsetByMouse (event: MouseEvent): { left: number, top: number } {
+    offsetByMouse (event) {
       return relativeMouseOffset(event, this.$el)
     },
 
-    offsetByTouch (event: TouchEvent): { left: number, top: number } {
+    offsetByTouch (event) {
       const touch = event.touches.length === 0 ? event.changedTouches[0] : event.touches[0]
       return relativeMouseOffset(touch, this.$el)
     },
 
-    dragStart (event: Event, f: (event: Event) => { left: number, top: number }) {
+    dragStart (event, f) {
       if (this.disabled || this.target !== event.target) return
       event.preventDefault()
       this.isDrag = true
       this.$emit('dragstart', event, f(event), this.target)
     },
 
-    dragMove (event: Event, f: (event: Event) => { left: number, top: number }) {
+    dragMove (event, f) {
       if (!this.isDrag) return
       event.preventDefault()
       this.$emit('drag', event, f(event), this.target)
     },
 
-    dragEnd (event: Event, f: (event: Event) => { left: number, top: number }) {
+    dragEnd (event, f) {
       if (!this.isDrag) return
       event.preventDefault()
       this.isDrag = false
