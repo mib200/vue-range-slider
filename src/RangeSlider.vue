@@ -43,91 +43,98 @@ export default {
     }
   },
 
-  data () {
+  data: function data() {
     return {
       actualValue: null
-    }
+    };
   },
+  created: function created() {
+    var min = this._min,
+        max = this._max;
 
-  created () {
-    const { _min: min, _max: max } = this
-    let defaultValue = Number(this.value)
+    var defaultValue = Number(this.value);
 
     if (this.value == null || isNaN(defaultValue)) {
       if (min > max) {
-        defaultValue = min
+        defaultValue = min;
       } else {
-        defaultValue = (min + max) / 2
+        defaultValue = (min + max) / 2;
       }
     }
 
-    this.actualValue = this.round(defaultValue)
+    this.actualValue = this.round(defaultValue);
   },
 
+
   computed: {
-    _min () {
-      return Number(this.min)
+    _min: function _min() {
+      return Number(this.min);
     },
-
-    _max () {
-      return Number(this.max)
+    _max: function _max() {
+      return Number(this.max);
     },
-
-    _step () {
-      return Number(this.step)
+    _step: function _step() {
+      return Number(this.step);
     },
-
-    valuePercent () {
-      return (this.actualValue - this._min) / (this._max - this._min) * 100
+    valuePercent: function valuePercent() {
+      return (this.actualValue - this._min) / (this._max - this._min) * 100;
     }
   },
 
   watch: {
-    value (newValue) {
-      const value = Number(newValue)
+    value: function value(newValue) {
+      var value = Number(newValue);
       if (newValue != null && !isNaN(value)) {
-        this.actualValue = this.round(value)
+        this.actualValue = this.round(value);
       }
     },
-    min () {
-      this.actualValue = this.round(this.actualValue)
+    min: function min() {
+      this.actualValue = this.round(this.actualValue);
     },
-    max () {
-      this.actualValue = this.round(this.actualValue)
+    max: function max() {
+      this.actualValue = this.round(this.actualValue);
     }
   },
 
   methods: {
-    drag (event, offset) {
-      const { offsetWidth } = this.$refs.inner
-      this.actualValue = this.round(this.valueFromBounds(offset.left, offsetWidth))
-      this.emitEvent(this.actualValue)
-    },
+    drag: function drag(event, offset) {
+      var offsetWidth = this.$refs.inner.offsetWidth;
 
-    dragEnd (event, offset) {
-      const { offsetWidth } = this.$refs.inner
-      this.actualValue = this.round(this.valueFromBounds(offset.left, offsetWidth))
-      this.emitEvent(this.actualValue, true)
+      this.actualValue = this.round(this.valueFromBounds(offset.left, offsetWidth));
+      this.emitEvent(this.actualValue);
     },
+    dragEnd: function dragEnd(event, offset) {
+      var offsetWidth = this.$refs.inner.offsetWidth;
 
-    emitEvent(value, isDragEnd) {
-      this.$emit('input', value)
+      this.actualValue = this.round(this.valueFromBounds(offset.left, offsetWidth));
+      this.emitEvent(this.actualValue, true);
+    },
+    emitEvent: function emitEvent(value, isDragEnd) {
+      this.$emit('input', value);
       if (isDragEnd) {
-        this.$emit('change', value)
+        this.$emit('change', value);
       }
     },
-
-    valueFromBounds (point, width) {
-      return (point / width) * (this._max - this._min) + this._min
+    valueFromBounds: function valueFromBounds(point, width) {
+      return point / width * (this._max - this._min) + this._min;
     },
+    round: function (_round) {
+      function round(_x) {
+        return _round.apply(this, arguments);
+      }
 
-    round (value) {
-      return round(value, this._min, this._max, this._step)
-    }
+      round.toString = function () {
+        return _round.toString();
+      };
+
+      return round;
+    }(function (value) {
+      return round(value, this._min, this._max, this._step);
+    })
   },
 
   components: {
-    DragHelper
+    DragHelper: DragHelper
   }
 }
 </script>
