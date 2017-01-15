@@ -65,7 +65,6 @@ export default {
     this.actualValue = this.round(defaultValue);
   },
 
-
   computed: {
     _min: function _min() {
       return Number(this.min);
