@@ -22,6 +22,7 @@ import DragHelper from './DragHelper'
 import { round } from './utils'
 
 export default {
+  name: 'range-slider',
   props: {
     name: String,
     value: [String, Number],
@@ -138,7 +139,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $slider-height: 20px !default;
 $slider-width: 130px !default;
 $rail-height: 4px !default;
